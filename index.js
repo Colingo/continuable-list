@@ -9,6 +9,10 @@ function list(tasks) {
         var count = 0
         var length = tasks.length
 
+        if (length === 0) {
+            return callback(null, result)
+        }
+
         tasks.forEach(function invokeSource(source, index) {
             source(function continuation(err, value) {
                 if (err && !ended) {
