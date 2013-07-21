@@ -5,21 +5,20 @@ module.exports = list
 function list(tasks) {
     return function continuable(callback) {
         var result = []
-        var ended = false
         var count = 0
-        var length = tasks.length
 
-        if (length === 0) {
+        if (tasks.length === 0) {
             return callback(null, result)
         }
 
         tasks.forEach(function invokeSource(source, index) {
             source(function continuation(err, value) {
-                if (err && !ended) {
+                if (err && result) {
+                    result = null
                     callback(err)
-                } else if (!err) {
+                } else if (!err && result) {
                     result[index] = value
-                    if (++count === length) {
+                    if (++count === tasks.length) {
                         callback(null, result)
                     }
                 }
