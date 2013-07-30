@@ -1,4 +1,6 @@
-module.exports = list
+var maybeCallback = require("continuable/maybe-callback")
+
+module.exports = maybeCallback(list)
 
 //  list := (tasks:Array<Continuable<T>>)
 //      => Continuable<Array<T>>
